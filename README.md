@@ -26,4 +26,3 @@ docker stop <container-id>
 - Node.js server
 - React front end
 
-##
