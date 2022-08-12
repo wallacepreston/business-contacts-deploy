@@ -11,22 +11,19 @@ env:
 
 
 jobs:
+      
   build:
+    name: Test and Deploy
     runs-on: ubuntu-latest
     steps:
+
+    # Run tests
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: 16
     - run: npm ci
     - run: npm test
-      
-  deploy:
-    name: Deploy to Heroku
-    runs-on: ubuntu-latest
-    steps:
-
-    # Clone the repository
 
     # Build Docker image
     - uses: actions/checkout@v3
