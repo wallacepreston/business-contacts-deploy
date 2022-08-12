@@ -1,4 +1,4 @@
-name: business-contacts-test
+name: business-contacts-build
 
 on:
   push:
@@ -14,25 +14,19 @@ env:
 jobs:
       
   build:
-    name: Test and Deploy
+    name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
 
-    # Run tests
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - run: npm ci
-    - run: npm test
-
     # Build Docker image
     - uses: actions/checkout@v3
-    - name: Build Docker image
+    - name: Log In to Heroku
       run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
     # Push the Docker image to Heroku Container Registry
-    - name: Publish
-      run: |
-        heroku container:push web -a $APP_NAME
-        heroku container:release web -a $APP_NAME
+    - name: Push to Heroku, Build Image
+      run: heroku container:push web -a $APP_NAME
+
+    # Tell Heroku to start the app in a container
+    - name: Start container
+      run: heroku container:release web -a $APP_NAME
