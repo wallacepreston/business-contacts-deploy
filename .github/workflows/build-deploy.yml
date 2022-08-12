@@ -1,9 +1,11 @@
 name: business-contacts-build
 
 on:
-  push:
-    branches: [ main ]
-    
+  workflow_run:
+    workflows: [Test]
+    types: [completed]
+    branches: [main]
+
 #set environment variables 
 env:
   # get from https://dashboard.heroku.com/account
