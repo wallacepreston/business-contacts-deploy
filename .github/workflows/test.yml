@@ -1,4 +1,4 @@
-name: business-contacts-test
+name: Test
 
 on:
   push:
