@@ -21,6 +21,7 @@ jobs:
     # Build Docker image
     - uses: actions/checkout@v3
     - name: Build Docker image
+      run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
       run: docker build . --file Dockerfile --tag business-contacts:$(date +%s)
 
     # Push the Docker image to Heroku Container Registry
