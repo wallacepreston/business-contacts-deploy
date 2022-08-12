@@ -1,0 +1,30 @@
+name: business-contacts-test
+
+on:
+  push:
+    branches: [ main ]
+    
+#set environment variables 
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  APP_NAME: ${{ 'business-contacts-deploy' }} # must match Heroku app name
+
+jobs:
+      
+  deploy:
+    name: Deploy to Heroku
+    runs-on: ubuntu-latest
+    steps:
+
+    # Clone the repository
+
+    # Build Docker image
+    - uses: actions/checkout@v3
+    - name: Build Docker image
+      run: docker build . --file Dockerfile --tag business-contacts:$(date +%s)
+
+    # Push the Docker image to Heroku Container Registry
+    - name: Publish
+      run: |
+        heroku container:push web -a $APP_NAME
+        heroku container:release web -a $APP_NAME

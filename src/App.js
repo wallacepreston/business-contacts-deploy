@@ -12,7 +12,7 @@ function App() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/contacts')
+    fetch('/api/contacts')
       .then(res => res.json())
       .then(data => setContacts(data));
   }, []);
