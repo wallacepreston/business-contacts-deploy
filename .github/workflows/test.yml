@@ -1,7 +1,7 @@
 name: business-contacts-test
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
@@ -9,7 +9,7 @@ jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
-    
+
     steps:
 
     # Run tests
